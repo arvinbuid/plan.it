@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Inertia\Inertia;
 
 class EventController extends Controller
 {
@@ -13,7 +14,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('events/index', [
+            'events' => Event::all()
+        ]);
     }
 
     /**
@@ -21,7 +24,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('events/create');
     }
 
     /**
@@ -29,7 +32,8 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+        Event::create($request->validated());
+        return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
 
     /**
@@ -37,7 +41,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return Inertia::render('events/show', [
+            'event' => $event
+        ]);
     }
 
     /**
@@ -45,7 +51,9 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        return Inertia::render('events/edit', [
+            'event' => $event
+        ]);
     }
 
     /**
@@ -53,7 +61,8 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+        $event->update($request->validated());
+        return redirect()->route('events.index')->with('success', 'Event updated successfully.');
     }
 
     /**
@@ -61,6 +70,7 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+        return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
     }
 }

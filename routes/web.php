@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EventController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -15,9 +16,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return Inertia::render('dashboard');
     })->name('dashboard');
 
-    Route::get('events', function () {
-        return Inertia::render('events/index');
-    })->name('events.index');
+    Route::resource('events', EventController::class);
 });
 
 require __DIR__ . '/settings.php';
