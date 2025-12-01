@@ -8,8 +8,9 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Event } from '@/types';
 
-export default function Index({ events }) {
+export default function Index({ events }: { events: Event[] }) {
     return (
         <AppLayout>
             <Head title="Events" />
@@ -24,7 +25,7 @@ export default function Index({ events }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {events.map((event: any) => {
+                        {events.map((event) => {
                             const length = event.description.length;
                             const description = length > 50 ? event.description.substring(0, 50) + '...' : event.description;
 

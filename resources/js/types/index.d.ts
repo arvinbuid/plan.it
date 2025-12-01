@@ -41,3 +41,11 @@ export interface User {
     updated_at: string;
     [key: string]: unknown; // This allows for additional properties...
 }
+
+export interface Event {
+    id: number;
+    title: string;
+    description: string;
+    location: string;
+    start_date_time: string;
+}
