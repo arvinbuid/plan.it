@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { Head } from '@inertiajs/react';
+import { Head, router } from '@inertiajs/react';
 import {
     Table,
     TableBody,
@@ -9,8 +9,15 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { Event } from '@/types';
+import { Button } from '@/components/ui/button';
+import { Trash2Icon } from 'lucide-react';
 
 export default function Index({ events }: { events: Event[] }) {
+    const handleDeleteEvent = (id: number) => {
+        if (confirm('Are you sure you want to delete?')) {
+            router.delete(route('events.destroy', { event: id }))
+        }
+    }
     return (
         <AppLayout>
             <Head title="Events" />
@@ -35,6 +42,15 @@ export default function Index({ events }: { events: Event[] }) {
                                     <TableCell>{description}</TableCell>
                                     <TableCell>{event.location}</TableCell>
                                     <TableCell>{event.start_date_time}</TableCell>
+                                    <TableCell>
+                                        <Button
+                                            variant='destructive'
+                                            onClick={() => handleDeleteEvent(event.id)}
+                                            className='cursor-pointer'
+                                        >
+                                            <Trash2Icon />
+                                        </Button>
+                                    </TableCell>
                                 </TableRow>
                             )
                         })}
