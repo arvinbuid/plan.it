@@ -1,5 +1,5 @@
 import AppLayout from '@/layouts/app-layout';
-import { Head, router } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import {
     Table,
     TableBody,
@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table"
 import { Event } from '@/types';
 import { Button } from '@/components/ui/button';
-import { Trash2Icon } from 'lucide-react';
+import { PencilIcon, Trash2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 import { usePage } from '@inertiajs/react'
 import { useEffect } from 'react';
@@ -37,13 +37,24 @@ export default function Index({ events }: { events: Event[] }) {
         <AppLayout>
             <Head title="Events" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <Table>
+                <div className="mt-8">
+                    <Link href='/events/create'>
+                        <Button
+                            variant='outline'
+                            className='cursor-pointer'
+                        >
+                            Create New Event
+                        </Button>
+                    </Link>
+                </div>
+                <Table className='mt-4'>
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">Title</TableHead>
                             <TableHead>Description</TableHead>
                             <TableHead>Location</TableHead>
                             <TableHead>Start Date</TableHead>
+                            <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -58,6 +69,14 @@ export default function Index({ events }: { events: Event[] }) {
                                     <TableCell>{event.location}</TableCell>
                                     <TableCell>{event.start_date_time}</TableCell>
                                     <TableCell>
+                                        <Link href={`/events/${event.id}/edit`}>
+                                            <Button
+                                                variant='secondary'
+                                                className='mr-2 cursor-pointer'
+                                            >
+                                                <PencilIcon />
+                                            </Button>
+                                        </Link>
                                         <Button
                                             variant='destructive'
                                             onClick={() => handleDeleteEvent(event.id)}
