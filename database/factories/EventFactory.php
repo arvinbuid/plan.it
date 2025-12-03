@@ -19,7 +19,6 @@ class EventFactory extends Factory
         return [
             'title' => fake()->sentence(3),
             'description' => fake()->paragraph(),
-            'start_date_time' => fake()->dateTimeBetween('now', '+1 year'),
             'location' => fake()->city()
         ];
     }

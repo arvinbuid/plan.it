@@ -26,7 +26,7 @@ export default function Index({ events }: { events: Event[] }) {
         if (flash.error) {
             toast.error(flash.error)
         }
-    })
+    }, [flash.success, flash.error])
 
     const handleDeleteEvent = (id: number) => {
         if (confirm('Are you sure you want to delete?')) {

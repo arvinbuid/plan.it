@@ -32,8 +32,16 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        Event::create($request->validated());
-        return redirect()->route('events.index')->with('success', 'Event created successfully.');
+        // dd($request);
+        Event::create($request->validate(
+            [
+
+                'title' => ['required', 'string', 'max:255'],
+                'description' => ['required', 'string', 'max:255'],
+                'location' => ['nullable', 'string'],
+            ]
+        ));
+        return to_route('events.index')->with('success', 'Event created successfully.');
     }
 
     /**
