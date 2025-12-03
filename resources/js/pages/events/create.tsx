@@ -18,7 +18,6 @@ import { toast } from "sonner";
 type CreateEventForm = {
     title: string,
     description: string,
-    start_date_time?: string,
     location: string
 }
 
@@ -29,7 +28,6 @@ const CreateEventPage = () => {
     const { data, setData, post, processing, errors, reset } = useForm<Required<CreateEventForm>>({
         title: "",
         description: "",
-        start_date_time: '',
         location: ""
     })
 
@@ -49,15 +47,14 @@ const CreateEventPage = () => {
             forceFormData: true,
             preserveScroll: true,
             onSuccess: () => {
-                reset('title', 'description', 'start_date_time', 'location')
+                reset('title', 'description', 'location')
             },
             onError: (errors) => {
                 if (errors) {
-                    reset('title', 'description', 'start_date_time', 'location')
+                    reset('title', 'description', 'location')
                 }
             }
         })
-        console.log('form successfully submitted!')
     }
 
     return (
