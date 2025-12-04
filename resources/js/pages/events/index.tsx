@@ -8,12 +8,23 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
-import { Event } from '@/types';
+import { BreadcrumbItem, Event } from '@/types';
 import { Button } from '@/components/ui/button';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 import { usePage } from '@inertiajs/react'
 import { useEffect } from 'react';
+
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Dashboard',
+        href: '/dashboard'
+    },
+    {
+        title: 'Events',
+        href: '/events'
+    }
+]
 
 export default function Index({ events }: { events: Event[] }) {
     const { props } = usePage();
@@ -34,7 +45,7 @@ export default function Index({ events }: { events: Event[] }) {
         }
     }
     return (
-        <AppLayout>
+        <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Events" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <div className="mt-8">
