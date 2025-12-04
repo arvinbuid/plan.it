@@ -1,5 +1,5 @@
 import AppLayout from "@/layouts/app-layout";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import {
     Field,
     FieldGroup,
@@ -12,8 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button"
 import {
 } from "@/components/ui/popover"
-import { FormEventHandler, useEffect } from "react";
-import { toast } from "sonner";
+import { FormEventHandler } from "react";
 
 type CreateEventForm = {
     title: string,
@@ -22,23 +21,11 @@ type CreateEventForm = {
 }
 
 const CreateEventPage = () => {
-    const { props } = usePage();
-    const flash = props.flash as { success?: string, error?: string }
-
     const { data, setData, post, processing, errors, reset } = useForm<Required<CreateEventForm>>({
         title: "",
         description: "",
         location: ""
     })
-
-    useEffect(() => {
-        if (flash.success) {
-            toast.success(flash.success)
-        }
-        if (flash.error) {
-            toast.error(flash.error)
-        }
-    }, [flash.success, flash.error])
 
     const handleCreateEvent: FormEventHandler = (e) => {
         e.preventDefault();

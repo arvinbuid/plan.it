@@ -11,9 +11,6 @@ import {
 import { BreadcrumbItem, Event } from '@/types';
 import { Button } from '@/components/ui/button';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
-import { toast } from 'sonner';
-import { usePage } from '@inertiajs/react'
-import { useEffect } from 'react';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -27,21 +24,9 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function Index({ events }: { events: Event[] }) {
-    const { props } = usePage();
-    const flash = props.flash as { success?: string, error?: string }
-
-    useEffect(() => {
-        if (flash.success) {
-            toast.success(flash.success)
-        }
-        if (flash.error) {
-            toast.error(flash.error)
-        }
-    }, [flash.success, flash.error])
-
     const handleDeleteEvent = (id: number) => {
         if (confirm('Are you sure you want to delete?')) {
-            router.delete(route('events.destroy', { event: id }))
+            router.delete(route('events.destroy', id))
         }
     }
     return (

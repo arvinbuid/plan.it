@@ -1,5 +1,5 @@
 import AppLayout from "@/layouts/app-layout";
-import { Head, Link, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
 import {
     Field,
     FieldGroup,
@@ -11,8 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Event } from "@/types";
-import { FormEventHandler, useEffect } from "react";
-import { toast } from "sonner";
+import { FormEventHandler } from "react";
 
 type UpdateEventForm = {
     title: string,
@@ -21,18 +20,6 @@ type UpdateEventForm = {
 }
 
 const EditEventPage = ({ event }: { event: Event }) => {
-    const { props } = usePage();
-    const flash = props.flash as { success?: string, error?: string }
-
-    useEffect(() => {
-        if (flash.success) {
-            toast.success(flash.success)
-        }
-        if (flash.error) {
-            toast.error(flash.error)
-        }
-    }, [flash.success, flash.error])
-
     const { data, setData, put, processing, errors, reset } = useForm<Required<UpdateEventForm>>({
         title: event.title,
         description: event.description,
