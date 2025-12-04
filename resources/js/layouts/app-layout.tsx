@@ -20,7 +20,7 @@ export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => {
         if (flash.error) {
             toast.error(flash.error)
         }
-    }, [flash.success, flash.error, flash])
+    }, [flash.success, flash.error])
     return (
         <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
             <Toaster position='top-right' />
