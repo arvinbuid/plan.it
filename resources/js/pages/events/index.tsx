@@ -53,7 +53,6 @@ export default function Index({ events }: { events: Event[] }) {
                             <TableHead className="w-[100px]">Title</TableHead>
                             <TableHead>Description</TableHead>
                             <TableHead>Location</TableHead>
-                            <TableHead>Start Date</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -67,7 +66,6 @@ export default function Index({ events }: { events: Event[] }) {
                                     <TableCell className='font-medium'>{event.title}</TableCell>
                                     <TableCell>{description}</TableCell>
                                     <TableCell>{event.location}</TableCell>
-                                    <TableCell>{event.start_date_time}</TableCell>
                                     <TableCell>
                                         <Link href={`/events/${event.id}/edit`}>
                                             <Button

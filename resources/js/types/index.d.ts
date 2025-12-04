@@ -47,5 +47,4 @@ export interface Event {
     title: string;
     description: string;
     location: string;
-    start_date_time: string;
 }
