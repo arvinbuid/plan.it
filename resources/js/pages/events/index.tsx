@@ -11,6 +11,15 @@ import {
 import { BreadcrumbItem, Event } from '@/types';
 import { Button } from '@/components/ui/button';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -23,12 +32,36 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ]
 
-export default function Index({ events }: { events: Event[] }) {
+// Helper function to compute visible page numbers
+const pagesToShow = (current: number, last: number) => {
+    const pages: number[] = [];
+    if (last <= 3) {
+        for (let i = 1; i <= last; i++) pages.push(i)
+        return pages
+    }
+    if (current <= 2) return [1, 2, 3];
+    if (current >= last - 1) return [last - 2, last - 1, last];
+    return [current - 1, current, current + 1];
+}
+
+interface IndexProps {
+    current_page: number,
+    data: Event[]
+    last_page: number,
+    next_page_url: string,
+    prev_page_url: string,
+}
+
+export default function Index({ events }: { events: IndexProps }) {
+    const { current_page, data, last_page, next_page_url, prev_page_url } = events;
     const handleDeleteEvent = (id: number) => {
         if (confirm('Are you sure you want to delete?')) {
             router.delete(route('events.destroy', id))
         }
     }
+
+    const pages = pagesToShow(current_page, last_page);
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Events" />
@@ -53,7 +86,7 @@ export default function Index({ events }: { events: Event[] }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {events.map((event) => {
+                        {data.map((event) => {
                             const length = event.description.length;
                             const description = length > 50 ? event.description.substring(0, 50) + '...' : event.description;
 
@@ -84,6 +117,49 @@ export default function Index({ events }: { events: Event[] }) {
                         })}
                     </TableBody>
                 </Table>
+
+                <div className="mt-4">
+                    <Pagination>
+                        <PaginationContent>
+                            <PaginationItem>
+                                <PaginationPrevious
+                                    href={prev_page_url ?? null}
+                                    className={!prev_page_url ? 'pointer-events-none opacity-50' : ''}
+                                />
+                            </PaginationItem>
+                            {/* Left ellipsis */}
+                            {current_page >= 2 && (
+                                <PaginationItem>
+                                    <PaginationEllipsis />
+                                </PaginationItem>
+                            )}
+                            {/* Page numbers (3 maximum) */}
+                            {pages.map((page, idx) => (
+                                <PaginationItem key={idx}>
+                                    <PaginationLink
+                                        href={`/events?page=${page}`}
+                                        isActive={page === current_page}
+                                    >
+                                        {page}
+                                    </PaginationLink>
+                                </PaginationItem>
+                            ))}
+                            {/* Right ellipsis */}
+                            {current_page < last_page - 1 && (
+                                <PaginationItem>
+                                    <PaginationEllipsis />
+                                </PaginationItem>
+                            )}
+                            {/* Next */}
+                            <PaginationItem>
+                                <PaginationNext
+                                    href={next_page_url ?? null}
+                                    className={!next_page_url ? 'pointer-events-none opacity-50' : ''}
+                                />
+                            </PaginationItem>
+                        </PaginationContent>
+                    </Pagination>
+                </div>
             </div>
         </AppLayout>
     );
