@@ -15,7 +15,7 @@ class EventController extends Controller
     public function index()
     {
         return Inertia::render('events/index', [
-            'events' => Event::paginate(6)
+            'events' => Event::paginate(6)->withQueryString()
         ]);
     }
 

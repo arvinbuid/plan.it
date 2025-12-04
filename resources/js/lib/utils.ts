@@ -16,3 +16,15 @@ export function isSameUrl(
 export function resolveUrl(url: NonNullable<InertiaLinkProps['href']>): string {
     return typeof url === 'string' ? url : url.url;
 }
+
+// Helper function to compute visible page numbers in pagination
+export const pagesToShow = (current: number, last: number) => {
+    const pages: number[] = [];
+    if (last <= 3) {
+        for (let i = 1; i <= last; i++) pages.push(i);
+        return pages;
+    }
+    if (current <= 2) return [1, 2, 3];
+    if (current >= last - 1) return [last - 2, last - 1, last];
+    return [current - 1, current, current + 1];
+};
