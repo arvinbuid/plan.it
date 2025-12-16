@@ -1,3 +1,4 @@
+import { ThemeProvider } from '@/components/theme-provider';
 import { useFlashToast } from '@/hooks/useFlashToast';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import { type BreadcrumbItem } from '@/types';
@@ -12,9 +13,11 @@ interface AppLayoutProps {
 export default ({ children, breadcrumbs, ...props }: AppLayoutProps) => {
     useFlashToast()
     return (
-        <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
-            <Toaster position='top-right' />
-            {children}
-        </AppLayoutTemplate>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+            <AppLayoutTemplate breadcrumbs={breadcrumbs} {...props}>
+                <Toaster position='top-right' />
+                {children}
+            </AppLayoutTemplate>
+        </ThemeProvider>
     )
 }
