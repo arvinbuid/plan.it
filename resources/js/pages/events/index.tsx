@@ -110,10 +110,17 @@ export default function Index({ events }: { events: IndexProps }) {
                     <Pagination>
                         <PaginationContent>
                             <PaginationItem>
-                                <PaginationPrevious
-                                    href={prev_page_url ?? null}
-                                    className={!prev_page_url ? 'pointer-events-none opacity-50' : ''}
-                                />
+                                {prev_page_url ? (
+                                    <Link
+                                        href={prev_page_url}
+                                        preserveScroll
+                                        preserveState
+                                    >
+                                        <PaginationPrevious />
+                                    </Link>
+                                ) : (
+                                    <PaginationPrevious className="pointer-events-none opacity-50" />
+                                )}
                             </PaginationItem>
                             {/* Left ellipsis */}
                             {current_page >= 2 && (
@@ -124,12 +131,15 @@ export default function Index({ events }: { events: IndexProps }) {
                             {/* Page numbers (3 maximum) */}
                             {pages.map((page, idx) => (
                                 <PaginationItem key={idx}>
-                                    <PaginationLink
-                                        href={`/events?page=${page}`}
-                                        isActive={page === current_page}
+                                    <Link
+                                        href={route('events.index', { page })}
+                                        preserveScroll
+                                        preserveState
                                     >
-                                        {page}
-                                    </PaginationLink>
+                                        <PaginationLink isActive={page === current_page}>
+                                            {page}
+                                        </PaginationLink>
+                                    </Link>
                                 </PaginationItem>
                             ))}
                             {/* Right ellipsis */}
@@ -140,10 +150,17 @@ export default function Index({ events }: { events: IndexProps }) {
                             )}
                             {/* Next */}
                             <PaginationItem>
-                                <PaginationNext
-                                    href={next_page_url ?? null}
-                                    className={!next_page_url ? 'pointer-events-none opacity-50' : ''}
-                                />
+                                {next_page_url ? (
+                                    <Link
+                                        href={next_page_url}
+                                        preserveScroll
+                                        preserveState
+                                    >
+                                        <PaginationNext />
+                                    </Link>
+                                ) : (
+                                    <PaginationNext className="pointer-events-none opacity-50" />
+                                )}
                             </PaginationItem>
                         </PaginationContent>
                     </Pagination>
