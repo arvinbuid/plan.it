@@ -15,9 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->dateTime('start_date_time');
-            $table->string('location');
+            $table->string('location')->nullable();
+            $table->enum('type', ['academic', 'extra-curricular', 'holiday', 'administrative'])
+                ->default('academic');
+
+            $table->dateTime('start_time');
+            $table->dateTime('end_time');
             $table->timestamps();
+
+            $table->index(['start_time', 'type']); // Optimization for filtering by 'type'
         });
     }
 
