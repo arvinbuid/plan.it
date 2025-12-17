@@ -20,7 +20,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { pagesToShow } from '@/lib/utils';
+import { pagesToShow, capitalizeFirstLetter } from '@/lib/utils';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -42,6 +42,7 @@ interface IndexProps {
 
 export default function Index({ events }: { events: IndexProps }) {
     const { current_page, data, last_page, next_page_url, prev_page_url } = events;
+    console.log(data)
     const handleDeleteEvent = (id: number) => {
         if (confirm('Are you sure you want to delete?')) {
             router.delete(route('events.destroy', id))
@@ -68,6 +69,7 @@ export default function Index({ events }: { events: IndexProps }) {
                     <TableHeader>
                         <TableRow>
                             <TableHead className="w-[100px]">Title</TableHead>
+                            <TableHead>Type</TableHead>
                             <TableHead>Description</TableHead>
                             <TableHead>Location</TableHead>
                             <TableHead>Actions</TableHead>
@@ -81,6 +83,7 @@ export default function Index({ events }: { events: IndexProps }) {
                             return (
                                 <TableRow key={event.id}>
                                     <TableCell className='font-medium'>{event.title}</TableCell>
+                                    <TableCell>{capitalizeFirstLetter(event.type.toString())}</TableCell>
                                     <TableCell>{description}</TableCell>
                                     <TableCell>{event.location}</TableCell>
                                     <TableCell>

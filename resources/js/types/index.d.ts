@@ -42,9 +42,19 @@ export interface User {
     [key: string]: unknown; // This allows for additional properties...
 }
 
+enum EventType {
+    'academic',
+    'extra-curricular',
+    'holiday',
+    'administrative',
+}
+
 export interface Event {
     id: number;
     title: string;
     description: string;
     location: string;
+    type: EventType;
+    start_time: string;
+    end_time: string;
 }

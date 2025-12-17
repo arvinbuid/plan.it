@@ -28,3 +28,7 @@ export const pagesToShow = (current: number, last: number) => {
     if (current >= last - 1) return [last - 2, last - 1, last];
     return [current - 1, current, current + 1];
 };
+
+export const capitalizeFirstLetter = (value: string) => {
+    return String(value).charAt(0).toUpperCase() + String(value).slice(1);
+};
