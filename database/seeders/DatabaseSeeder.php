@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::firstOrCreate(
-            ['email' => 'johndoe@example.com'],
+            ['email' => 'johndoe@example.io'],
             [
                 'name' => 'John Doe',
                 'password' => Hash::make('johndoe123'),
@@ -26,6 +26,6 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        Event::factory()->count(10)->create();
+        Event::factory()->count(50)->create(); // Create 50 events entries
     }
 }

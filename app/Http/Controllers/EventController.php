@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use App\Http\Resources\EventResource;
 use Inertia\Inertia;
 
 class EventController extends Controller
@@ -15,7 +16,7 @@ class EventController extends Controller
     public function index()
     {
         return Inertia::render('events/index', [
-            'events' => Event::paginate(6)->withQueryString()
+            'events' => EventResource::collection(Event::orderBy('start_time', 'desc')->get())
         ]);
     }
 
@@ -32,13 +33,15 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        // dd($request);
         Event::create($request->validate(
             [
 
                 'title' => ['required', 'string', 'max:255'],
                 'description' => ['required', 'string', 'max:255'],
                 'location' => ['nullable', 'string'],
+                'type' => ['required', 'in:academic,extra-curricular,holiday,administrative'],
+                'start_time' => ['required', 'date'],
+                'end_time' => ['required', 'date', 'after:start_time'],
             ]
         ));
         return to_route('events.index')->with('success', 'Event created successfully.');
@@ -50,7 +53,7 @@ class EventController extends Controller
     public function show(Event $event)
     {
         return Inertia::render('events/show', [
-            'event' => $event
+            'event' => new EventResource($event)
         ]);
     }
 
@@ -75,6 +78,9 @@ class EventController extends Controller
                 'title' => ['required', 'string', 'max:255'],
                 'description' => ['required', 'string', 'max:255'],
                 'location' => ['nullable', 'string'],
+                'type' => ['required', 'in:academic,extra-curricular,holiday,administrative'],
+                'start_time' => ['required', 'date'],
+                'end_time' => ['required', 'date', 'after:start_time'],
             ]
         ));
         return to_route('events.index')->with('success', 'Event updated successfully.');
