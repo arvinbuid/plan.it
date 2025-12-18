@@ -48,8 +48,7 @@ export default function Index({ events }: { events: IndexProps }) {
     const { data, links, meta } = events;
     const { prev: prev_page_url, next: next_page_url } = links;
     const { current_page, last_page } = meta;
-    console.log('Links: ', links)
-    console.log('Meta: ', meta)
+
     const handleDeleteEvent = (id: number) => {
         if (confirm('Are you sure you want to delete?')) {
             router.delete(route('events.destroy', id))
