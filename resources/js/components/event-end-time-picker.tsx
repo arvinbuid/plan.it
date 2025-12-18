@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/popover"
 import { useEffect, useState } from "react"
 import { format } from "date-fns"
+import { parseLocalDateTime } from "@/lib/utils"
 
 interface EventEndTimePickerProps {
     label?: string,
@@ -20,17 +21,23 @@ interface EventEndTimePickerProps {
 }
 
 const EventEndTimePicker = ({ label = "Date", value, onChange }: EventEndTimePickerProps) => {
+    const parsed = parseLocalDateTime(value)
     const [open, setOpen] = useState(false)
-    const [date, setDate] = useState<Date | undefined>(value ? new Date(value) : undefined)
-    const [time, setTime] = useState(value ? format(new Date(value), 'HH:mm:ss') : '10:30:00');
+    const [date, setDate] = useState<Date | undefined>(parsed)
+    const [time, setTime] = useState(parsed ? format(parsed, 'HH:mm:ss') : '00:00:00');
 
     // Effect to combine date and time
     useEffect(() => {
-        if (!date) return
+        if (!date || isNaN(date.getTime())) return;
         const [hours, minutes, seconds] = time.split(':').map(Number)
-        const combined = new Date(date)
-        combined.setHours(hours, minutes, seconds || 0)
-
+        const combined = new Date(
+            date.getFullYear(),
+            date.getMonth(),
+            date.getDate(),
+            hours,
+            minutes,
+            seconds
+        )
         onChange(format(combined, 'yyyy-MM-dd HH:mm:ss'))
     }, [date, time, onChange])
 

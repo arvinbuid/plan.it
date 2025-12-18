@@ -12,18 +12,33 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Event } from "@/types";
 import { FormEventHandler } from "react";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import EventStartTimePicker from "@/components/event-start-time-picker";
+import EventEndTimePicker from "@/components/event-end-time-picker";
 
 type UpdateEventForm = {
     title: string,
     description: string,
-    location: string
+    location: string,
+    type: 'academic' | 'extra-curricular' | 'holiday' | 'administrative',
+    start_time: string,
+    end_time: string
 }
 
 const EditEventPage = ({ event }: { event: Event }) => {
     const { data, setData, put, processing, errors, reset } = useForm<Required<UpdateEventForm>>({
         title: event.title,
         description: event.description,
-        location: event.location
+        location: event.location,
+        type: event.type,
+        start_time: event.start_time,
+        end_time: event.end_time
     });
 
     const handleUpdateEvent: FormEventHandler = (e) => {
@@ -89,6 +104,39 @@ const EditEventPage = ({ event }: { event: Event }) => {
                                             onChange={(e) => setData('location', e.target.value)}
                                         />
                                         {errors.location && <span className="text-xs text-red-500">{errors.location}</span>}
+                                    </Field>
+                                </div>
+
+                                <div>
+                                    <EventStartTimePicker
+                                        label="Start Date"
+                                        value={data.start_time}
+                                        onChange={(value) => setData('start_time', value)}
+                                    />
+                                    {errors.start_time && <span className="text-xs text-red-500">{errors.start_time}</span>}
+                                </div>
+                                <div>
+                                    <EventEndTimePicker
+                                        label="End Date"
+                                        value={data.end_time}
+                                        onChange={(value) => setData('end_time', value)}
+                                    />
+                                    {errors.end_time && <span className="text-xs text-red-500">{errors.end_time}</span>}
+                                </div>
+                                <div>
+                                    <Field>
+                                        <FieldLabel htmlFor="type">Event Type</FieldLabel>
+                                        <Select value={data.type} onValueChange={(value) => setData('type', value as UpdateEventForm['type'])}>
+                                            <SelectTrigger className="w-[180px]">
+                                                <SelectValue placeholder="Type" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                <SelectItem value="academic">Academic</SelectItem>
+                                                <SelectItem value="extra-curricular">Extra Curricular</SelectItem>
+                                                <SelectItem value="holiday">Holiday</SelectItem>
+                                                <SelectItem value="administrative">Administrative</SelectItem>
+                                            </SelectContent>
+                                        </Select>
                                     </Field>
                                 </div>
                                 <Field orientation="horizontal">

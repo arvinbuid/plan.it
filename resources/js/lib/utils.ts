@@ -32,3 +32,16 @@ export const pagesToShow = (current: number, last: number) => {
 export const capitalizeFirstLetter = (value: string) => {
     return String(value).charAt(0).toUpperCase() + String(value).slice(1);
 };
+
+export const parseLocalDateTime = (value: string) => {
+    if (!value || !value.includes('-')) return undefined;
+    const [d, t = '00:00:00'] = value.split(' ');
+
+    const [y, m, day] = d.split('-').map(Number);
+    if (!y || !m || !day) return undefined;
+
+    const [h, min, s] = t.split(':').map(Number);
+    const date = new Date(y, m - 1, day, h, min, s || 0);
+
+    return isNaN(date.getTime()) ? undefined : date;
+};
