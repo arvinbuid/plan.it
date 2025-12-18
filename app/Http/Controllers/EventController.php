@@ -16,7 +16,7 @@ class EventController extends Controller
     public function index()
     {
         return Inertia::render('events/index', [
-            'events' => EventResource::collection(Event::orderBy('start_time', 'desc')->get())
+            'events' => EventResource::collection(Event::paginate(6))
         ]);
     }
 

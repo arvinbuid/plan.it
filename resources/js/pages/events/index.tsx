@@ -33,16 +33,23 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ]
 interface IndexProps {
-    current_page: number,
     data: Event[]
-    last_page: number,
-    next_page_url: string,
-    prev_page_url: string,
+    links: {
+        prev: string | null;
+        next: string | null;
+    };
+    meta: {
+        current_page: number;
+        last_page: number;
+    };
 }
 
 export default function Index({ events }: { events: IndexProps }) {
-    const { current_page, data, last_page, next_page_url, prev_page_url } = events;
-    console.log(data)
+    const { data, links, meta } = events;
+    const { prev: prev_page_url, next: next_page_url } = links;
+    const { current_page, last_page } = meta;
+    console.log('Links: ', links)
+    console.log('Meta: ', meta)
     const handleDeleteEvent = (id: number) => {
         if (confirm('Are you sure you want to delete?')) {
             router.delete(route('events.destroy', id))
