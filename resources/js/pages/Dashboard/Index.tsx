@@ -14,16 +14,23 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface DashboardProps {
     stats: {
         totalEvents: number;
+        upcomingEvents: number;
+        ongoingEvents: number;
+        pastEvents: number;
     }
 }
 
 export default function Dashboard(props: DashboardProps) {
-    const { totalEvents } = props.stats;
-    console.log(totalEvents);
+    const { totalEvents, upcomingEvents, ongoingEvents, pastEvents } = props.stats;
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
-            <DashboardGrid totalEvents={totalEvents} />
+            <DashboardGrid
+                totalEvents={totalEvents}
+                upcomingEvents={upcomingEvents}
+                ongoingEvents={ongoingEvents}
+                pastEvents={pastEvents}
+            />
         </AppLayout>
     );
 }
