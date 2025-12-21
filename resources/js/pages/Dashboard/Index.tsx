@@ -18,10 +18,16 @@ interface DashboardProps {
         ongoingEvents: number;
         pastEvents: number;
     }
+    eventsChartData: Array<{
+        date: string;
+        total: number;
+    }>
 }
 
 export default function Dashboard(props: DashboardProps) {
     const { totalEvents, upcomingEvents, ongoingEvents, pastEvents } = props.stats;
+    const { eventsChartData } = props;
+
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Dashboard" />
@@ -30,6 +36,7 @@ export default function Dashboard(props: DashboardProps) {
                 upcomingEvents={upcomingEvents}
                 ongoingEvents={ongoingEvents}
                 pastEvents={pastEvents}
+                chartData={eventsChartData}
             />
         </AppLayout>
     );

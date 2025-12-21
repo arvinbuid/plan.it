@@ -1,3 +1,4 @@
+import EventsChart from "@/components/events-chart";
 import { EllipsisVertical, Ticket, CalendarDays, CalendarClock, CalendarCheck } from "lucide-react";
 
 interface DashboardGridProps {
@@ -5,10 +6,14 @@ interface DashboardGridProps {
     upcomingEvents: number;
     ongoingEvents: number;
     pastEvents: number;
+    chartData: Array<{
+        date: string;
+        total: number;
+    }>
 }
 
 
-const DashboardGrid = ({ totalEvents, upcomingEvents, ongoingEvents, pastEvents }: DashboardGridProps) => {
+const DashboardGrid = ({ totalEvents, upcomingEvents, ongoingEvents, pastEvents, chartData }: DashboardGridProps) => {
     return (
         <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div className="grid auto-rows-min md:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -57,8 +62,11 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, ongoingEvents, pastEvents 
                     </div>
                 </div>
             </div>
-            <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-
+            <div className="space-y-2">
+                <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border p-6">
+                    <h1 className="text-2xl font-bold">Events Chart</h1>
+                    <EventsChart data={chartData} />
+                </div>
             </div>
         </div>
     );
