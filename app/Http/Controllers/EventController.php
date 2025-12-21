@@ -33,17 +33,8 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        Event::create($request->validate(
-            [
-
-                'title' => ['required', 'string', 'max:255'],
-                'description' => ['required', 'string', 'max:255'],
-                'location' => ['nullable', 'string'],
-                'type' => ['required', 'in:academic,extra-curricular,holiday,administrative'],
-                'start_time' => ['required', 'date'],
-                'end_time' => ['required', 'date', 'after:start_time'],
-            ]
-        ));
+        $validated = $request->validated();
+        Event::create($validated);
         return to_route('events.index')->with('success', 'Event created successfully.');
     }
 
@@ -72,17 +63,8 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        $event->update($request->validate(
-            [
-
-                'title' => ['required', 'string', 'max:255'],
-                'description' => ['required', 'string', 'max:255'],
-                'location' => ['nullable', 'string'],
-                'type' => ['required', 'in:academic,extra-curricular,holiday,administrative'],
-                'start_time' => ['required', 'date'],
-                'end_time' => ['required', 'date', 'after:start_time'],
-            ]
-        ));
+        $validated = $request->validated();
+        $event->update($validated);
         return to_route('events.index')->with('success', 'Event updated successfully.');
     }
 
