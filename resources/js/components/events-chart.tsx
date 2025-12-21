@@ -10,10 +10,10 @@ interface EventsChartProps {
 const EventsChart = (data: EventsChartProps) => {
     return (
         <AreaChart
-            style={{ width: '100%', maxWidth: '700px', maxHeight: '55vh', aspectRatio: 1.618 }}
+            style={{ width: '100%', maxHeight: '55vh', aspectRatio: 1.618 }}
             responsive
             data={data.data}
-            margin={{ top: 30, right: 0, left: 0, bottom: 0 }}
+            margin={{ top: 20, right: 0, left: 0, bottom: 0 }}
         >
             <defs>
                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -50,7 +50,8 @@ const EventsChart = (data: EventsChartProps) => {
                 type="basisOpen"
                 dataKey="total"
                 stroke="#e12afb"
-                fillOpacity={1}
+                strokeWidth={3}
+                fillOpacity={6}
                 fill="url(#colorPv)"
             />
         </AreaChart>
