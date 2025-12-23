@@ -1,6 +1,6 @@
 import AppLayout from '@/layouts/app-layout';
 import { dashboard } from '@/routes';
-import { type BreadcrumbItem } from '@/types';
+import { Event, type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/react';
 import DashboardGrid from './DashboardGrid';
 
@@ -14,6 +14,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 interface DashboardProps {
     stats: {
         totalEvents: number;
+        upcomingEvents: Event[];
         upcomingEventsCount: number;
         ongoingEvents: number;
         pastEvents: number;
@@ -25,7 +26,7 @@ interface DashboardProps {
 }
 
 export default function Dashboard(props: DashboardProps) {
-    const { totalEvents, upcomingEventsCount, ongoingEvents, pastEvents } = props.stats;
+    const { totalEvents, upcomingEvents, upcomingEventsCount, ongoingEvents, pastEvents } = props.stats;
     const { eventsChartData } = props;
 
     return (
@@ -33,6 +34,7 @@ export default function Dashboard(props: DashboardProps) {
             <Head title="Dashboard" />
             <DashboardGrid
                 totalEvents={totalEvents}
+                upcomingEvents={upcomingEvents}
                 upcomingEventsCount={upcomingEventsCount}
                 ongoingEvents={ongoingEvents}
                 pastEvents={pastEvents}

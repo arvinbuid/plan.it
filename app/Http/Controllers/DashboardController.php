@@ -12,6 +12,7 @@ class DashboardController extends Controller
     {
         $totalEvents = Event::count();
         $upcomingEventsCount = Event::where('start_time', '>=', now())->count();
+        $upcomingEvents = Event::where('start_time', '>=', now())->get();
         $ongoingEvents = Event::where('start_time', '<=', now())->where('end_time', '>=', now())->count();
         $pastEvents = Event::where('end_time', '<', now())->count();
 
@@ -24,6 +25,7 @@ class DashboardController extends Controller
         return Inertia::render('Dashboard/Index', [
             'stats' => [
                 'totalEvents' => $totalEvents,
+                'upcomingEvents' => $upcomingEvents,
                 'upcomingEventsCount' => $upcomingEventsCount,
                 'ongoingEvents' => $ongoingEvents,
                 'pastEvents' => $pastEvents
