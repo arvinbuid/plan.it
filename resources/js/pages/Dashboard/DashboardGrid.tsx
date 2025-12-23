@@ -3,7 +3,7 @@ import { EllipsisVertical, Ticket, CalendarDays, CalendarClock, CalendarCheck } 
 
 interface DashboardGridProps {
     totalEvents: number;
-    upcomingEvents: number;
+    upcomingEventsCount: number;
     ongoingEvents: number;
     pastEvents: number;
     chartData: Array<{
@@ -13,7 +13,7 @@ interface DashboardGridProps {
 }
 
 
-const DashboardGrid = ({ totalEvents, upcomingEvents, ongoingEvents, pastEvents, chartData }: DashboardGridProps) => {
+const DashboardGrid = ({ totalEvents, upcomingEventsCount, ongoingEvents, pastEvents, chartData }: DashboardGridProps) => {
     return (
         <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
             <div className="grid auto-rows-min md:grid-cols-2 xl:grid-cols-5 gap-4">
@@ -36,7 +36,7 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, ongoingEvents, pastEvents,
                             <EllipsisVertical className="text-slate-500 dark:text-gray-200" />
                         </div>
                         <h1 className="text-lg text-slate-500 dark:text-gray-200">Upcoming Events</h1>
-                        <p className="font-bold text-4xl text-blue-900 dark:text-gray-200">{upcomingEvents}</p>
+                        <p className="font-bold text-4xl text-blue-900 dark:text-gray-200">{upcomingEventsCount}</p>
                     </div>
                 </div>
                 {/* Ongoing Events */}
