@@ -24,4 +24,14 @@ export default defineConfig({
     esbuild: {
         jsx: 'automatic',
     },
+    // reference: https://github.com/laravel/wayfinder/issues/88
+    // fix for 'queryParams is not defined'
+    server: {
+        watch: {
+            ignored: [
+                '**/resources/js/actions/**',
+                '**/resources/js/routes/**',
+            ],
+        },
+    },
 });
