@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EventResource;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -31,6 +32,13 @@ class DashboardController extends Controller
                 'pastEvents' => $pastEvents
             ],
             'eventsChartData' => $eventsChartData
+        ]);
+    }
+
+    public function show(Event $event)
+    {
+        return Inertia::render('Dashboard/Show', [
+            'event' => new EventResource($event)
         ]);
     }
 }
