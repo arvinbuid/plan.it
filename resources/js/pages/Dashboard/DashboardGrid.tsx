@@ -21,7 +21,7 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, upcomingEventsCount, ongoi
     const latestEvents = upcomingEvents.slice(0, 1); // Get the latest 2 events
     return (
         <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-            <div className="grid auto-rows-min md:grid-cols-2 xl:grid-cols-5 gap-4">
+            <div className="grid auto-rows-min grid-cols-2 xl:grid-cols-5 gap-4">
                 {/* Total Events */}
                 <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <div className="p-6 space-y-2">
@@ -77,7 +77,7 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, upcomingEventsCount, ongoi
                                         <h1 className="text-md font-semibold text-slate-800">{event.title}</h1>
                                         <p className="text-sm text-slate-500">{event.location}</p>
                                     </div>
-                                    <div className="flex justify-between">
+                                    <div className="flex flex-col md:flex-row justify-between gap-6">
                                         <div className="flex gap-3">
                                             <CalendarDays className="w-10 h-10 text-gray-700 p-3 bg-white rounded-lg" />
                                             <div className="flex flex-col xl:hidden">
@@ -88,7 +88,7 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, upcomingEventsCount, ongoi
 
                                         <Link
                                             href={`/dashboard/${event.id}`}
-                                            className="px-4 py-2 bg-fuchsia-500 hover:bg-fuchsia-600 transition-colors text-xs text-white rounded-full tracking-wide cursor-pointer flex items-center"
+                                            className="px-4 py-2 bg-fuchsia-500 hover:bg-fuchsia-600 transition-colors text-xs text-white rounded-full tracking-wide cursor-pointer flex items-center justify-center"
                                         >
                                             View Details
                                         </Link>
