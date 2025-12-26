@@ -15,7 +15,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Inertia::render('events/index', [
+        return Inertia::render('Events/Index', [
             'events' => EventResource::collection(Event::paginate(6))
         ]);
     }
@@ -25,7 +25,7 @@ class EventController extends Controller
      */
     public function create()
     {
-        return Inertia::render('events/create');
+        return Inertia::render('Events/Create');
     }
 
     /**
@@ -43,7 +43,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        return Inertia::render('events/show', [
+        return Inertia::render('Events/Show', [
             'event' => new EventResource($event)
         ]);
     }
@@ -53,7 +53,7 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        return Inertia::render('events/edit', [
+        return Inertia::render('Events/Edit', [
             'event' => $event
         ]);
     }
