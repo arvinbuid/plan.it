@@ -18,7 +18,7 @@ interface ShowProps {
     }
 }
 
-const ShowEvent = ({ event }: ShowProps) => {
+const ShowUpcomingEvent = ({ event }: ShowProps) => {
     const { data } = event;
     const startDate = new Date(data.start_time);
     const endDate = new Date(data.end_time);
@@ -82,4 +82,4 @@ const ShowEvent = ({ event }: ShowProps) => {
     );
 }
 
-export default ShowEvent;
+export default ShowUpcomingEvent;
