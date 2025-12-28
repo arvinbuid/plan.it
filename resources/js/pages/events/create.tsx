@@ -22,8 +22,7 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
-import EventStartTimePicker from "@/components/event-start-time-picker";
-import EventEndTimePicker from "@/components/event-end-time-picker";
+import DatePickerRangeAndTimePicker from "@/components/date-picker-range-and-time-picker";
 
 type CreateEventForm = {
     title: string,
@@ -119,22 +118,9 @@ const CreateEventPage = () => {
                                         {errors.location && <span className="text-xs text-red-500">{errors.location}</span>}
                                     </Field>
                                 </div>
-
                                 <div>
-                                    <EventStartTimePicker
-                                        label="Start Date"
-                                        value={data.start_time}
-                                        onChange={(value) => setData('start_time', value)}
-                                    />
+                                    <DatePickerRangeAndTimePicker />
                                     {errors.start_time && <span className="text-xs text-red-500">{errors.start_time}</span>}
-                                </div>
-                                <div>
-                                    <EventEndTimePicker
-                                        label="End Date"
-                                        value={data.end_time}
-                                        onChange={(value) => setData('end_time', value)}
-                                    />
-                                    {errors.end_time && <span className="text-xs text-red-500">{errors.end_time}</span>}
                                 </div>
                                 <div>
                                     <Field>
