@@ -10,9 +10,8 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { format } from "date-fns"
-import { parseLocalDateTime } from "@/lib/utils"
 
 interface EventEndTimePickerProps {
     label?: string,
@@ -21,25 +20,9 @@ interface EventEndTimePickerProps {
 }
 
 const EventEndTimePicker = ({ label = "Date", value, onChange }: EventEndTimePickerProps) => {
-    const parsed = parseLocalDateTime(value)
     const [open, setOpen] = useState(false)
-    const [date, setDate] = useState<Date | undefined>(parsed)
-    const [time, setTime] = useState(parsed ? format(parsed, 'HH:mm:ss') : '00:00:00');
-
-    // Effect to combine date and time
-    useEffect(() => {
-        if (!date || isNaN(date.getTime())) return;
-        const [hours, minutes, seconds] = time.split(':').map(Number)
-        const combined = new Date(
-            date.getFullYear(),
-            date.getMonth(),
-            date.getDate(),
-            hours,
-            minutes,
-            seconds
-        )
-        onChange(format(combined, 'yyyy-MM-dd HH:mm:ss'))
-    }, [date, time, onChange])
+    const [date, setDate] = useState<Date | undefined>(undefined)
+    const [time, setTime] = useState('00:00:00');
 
     return (
         <div className="flex justify-between md:justify-start gap-6">
