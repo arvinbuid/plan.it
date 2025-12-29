@@ -29,8 +29,8 @@ type CreateEventForm = {
     description: string,
     location: string,
     type: 'academic' | 'extra-curricular' | 'holiday' | 'administrative',
-    start_time: string,
-    end_time: string
+    start_time: Date | undefined,
+    end_time: Date | undefined
 }
 
 const CreateEventPage = () => {
@@ -39,15 +39,14 @@ const CreateEventPage = () => {
         description: "",
         location: "",
         type: "academic",
-        start_time: "",
-        end_time: ""
+        start_time: new Date(),
+        end_time: new Date()
     })
 
     const handleCreateEvent: FormEventHandler = (e) => {
         e.preventDefault();
 
         post(route('events.store'), {
-            forceFormData: true,
             preserveScroll: true,
             onSuccess: () => {
                 reset('title', 'description', 'location', 'type', 'start_time', 'end_time')
@@ -119,8 +118,14 @@ const CreateEventPage = () => {
                                     </Field>
                                 </div>
                                 <div>
-                                    <DatePickerRangeAndTimePicker />
+                                    <DatePickerRangeAndTimePicker
+                                        start={data.start_time}
+                                        end={data.end_time}
+                                        onStartChange={(start) => setData('start_time', start)}
+                                        onEndChange={(end) => setData('end_time', end)}
+                                    />
                                     {errors.start_time && <span className="text-xs text-red-500">{errors.start_time}</span>}
+                                    {errors.end_time && <span className="text-xs text-red-500">{errors.end_time}</span>}
                                 </div>
                                 <div>
                                     <Field>

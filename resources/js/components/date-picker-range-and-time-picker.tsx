@@ -12,11 +12,16 @@ import {
 } from "@/components/ui/popover"
 import { useState } from "react"
 
-const DatePickerRangeAndTimePicker = () => {
+interface Props {
+    start: Date | undefined;
+    end: Date | undefined;
+    onStartChange: (start: Date | undefined) => void
+    onEndChange: (end: Date | undefined) => void
+}
+
+const DatePickerRangeAndTimePicker = ({ start, end, onStartChange, onEndChange }: Props) => {
     const [openFrom, setOpenFrom] = useState(false)
     const [openTo, setOpenTo] = useState(false)
-    const [dateFrom, setDateFrom] = useState<Date | undefined>(new Date('2025-12-28'))
-    const [dateTo, setDateTo] = useState<Date | undefined>(new Date('2025-12-28'))
 
     return (
         <div className='flex w-full max-w-64 min-w-0 flex-col gap-6'>
@@ -28,8 +33,8 @@ const DatePickerRangeAndTimePicker = () => {
                     <Popover open={openFrom} onOpenChange={setOpenFrom}>
                         <PopoverTrigger asChild>
                             <Button variant='outline' id='date-from' className='w-full justify-between font-normal'>
-                                {dateFrom
-                                    ? dateFrom.toLocaleDateString('en-PH', {
+                                {start
+                                    ? start.toLocaleDateString('en-PH', {
                                         day: '2-digit',
                                         month: 'short',
                                         year: 'numeric'
@@ -41,9 +46,9 @@ const DatePickerRangeAndTimePicker = () => {
                         <PopoverContent className='w-auto overflow-hidden p-0' align='start'>
                             <Calendar
                                 mode='single'
-                                selected={dateFrom}
+                                selected={start}
                                 onSelect={date => {
-                                    setDateFrom(date)
+                                    onStartChange(date)
                                     setOpenFrom(false)
                                 }}
                             />
@@ -71,8 +76,8 @@ const DatePickerRangeAndTimePicker = () => {
                     <Popover open={openTo} onOpenChange={setOpenTo}>
                         <PopoverTrigger asChild>
                             <Button variant='outline' id='date-to' className='w-full justify-between font-normal'>
-                                {dateTo
-                                    ? dateTo.toLocaleDateString('en-PH', {
+                                {end
+                                    ? end.toLocaleDateString('en-PH', {
                                         day: '2-digit',
                                         month: 'short',
                                         year: 'numeric'
@@ -84,13 +89,13 @@ const DatePickerRangeAndTimePicker = () => {
                         <PopoverContent className='w-auto overflow-hidden p-0' align='start'>
                             <Calendar
                                 mode='single'
-                                selected={dateTo}
+                                selected={end}
                                 captionLayout='dropdown'
                                 onSelect={date => {
-                                    setDateTo(date)
+                                    onEndChange(date)
                                     setOpenTo(false)
                                 }}
-                                disabled={dateFrom && { before: dateFrom }}
+                                disabled={start && { before: start }}
                             />
                         </PopoverContent>
                     </Popover>
