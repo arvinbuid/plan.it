@@ -91,6 +91,8 @@ const DatePickerRangeAndTimePicker = ({ start, end, onStartChange, onEndChange }
                                 mode='single'
                                 selected={end}
                                 captionLayout='dropdown'
+                                startMonth={new Date()}
+                                endMonth={new Date(2100, 11)}
                                 onSelect={date => {
                                     onEndChange(date)
                                     setOpenTo(false)
