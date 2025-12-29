@@ -51,11 +51,6 @@ const CreateEventPage = () => {
             onSuccess: () => {
                 reset('title', 'description', 'location', 'type', 'start_time', 'end_time')
             },
-            onError: (errors) => {
-                if (errors) {
-                    reset('title', 'description', 'location', 'type', 'start_time', 'end_time')
-                }
-            }
         })
     }
 
@@ -124,8 +119,10 @@ const CreateEventPage = () => {
                                         onStartChange={(start) => setData('start_time', start)}
                                         onEndChange={(end) => setData('end_time', end)}
                                     />
-                                    {errors.start_time && <span className="text-xs text-red-500">{errors.start_time}</span>}
-                                    {errors.end_time && <span className="text-xs text-red-500">{errors.end_time}</span>}
+                                    <div className="flex flex-col gap-2 mt-3">
+                                        {errors.start_time && <span className="text-xs text-red-500">{errors.start_time}</span>}
+                                        {errors.end_time && <span className="text-xs text-red-500">{errors.end_time}</span>}
+                                    </div>
                                 </div>
                                 <div>
                                     <Field>
