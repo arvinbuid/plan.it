@@ -31,7 +31,7 @@ const DatePickerRangeAndTimePicker = ({ start, end, onStartChange, onEndChange }
         date: Date | undefined,
         type: "hour" | "minute" | "ampm",
         value: string,
-        onChange: (d: Date) => void
+        onChange: (d: Date | undefined) => void
     ) => {
         if (!date) return;
         const newDate = new Date(date);

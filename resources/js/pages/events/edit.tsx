@@ -20,6 +20,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import DatePickerRangeAndTimePicker from "@/components/date-picker-range-and-time-picker";
+import { format } from "date-fns";
 
 type UpdateEventForm = {
     title: string,
@@ -107,10 +108,10 @@ const EditEventPage = ({ event }: { event: Event }) => {
                                 </div>
                                 <div>
                                     <DatePickerRangeAndTimePicker
-                                        start={data.start_time ? new Date(data.start_time) : undefined}
-                                        end={data.end_time ? new Date(data.end_time) : undefined}
-                                        onStartChange={(start) => setData('start_time', start.toISOString())}
-                                        onEndChange={(end) => setData('end_time', end.toISOString())}
+                                        start={new Date(data.start_time)}
+                                        end={new Date(data.end_time)}
+                                        onStartChange={(start) => start && setData('start_time', format(start, 'yyyy-MM-dd HH:mm:ss'))}
+                                        onEndChange={(end) => end && setData('end_time', format(end, 'yyyy-MM-dd HH:mm:ss'))}
                                     />
                                     {errors.start_time && <span className="text-xs text-red-500">{errors.start_time}</span>}
                                 </div>
