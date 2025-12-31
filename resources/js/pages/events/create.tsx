@@ -23,14 +23,15 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import DatePickerRangeAndTimePicker from "@/components/date-picker-range-and-time-picker";
+import { format } from "date-fns";
 
 type CreateEventForm = {
     title: string,
     description: string,
     location: string,
     type: 'academic' | 'extra-curricular' | 'holiday' | 'administrative',
-    start_time: Date | undefined,
-    end_time: Date | undefined
+    start_time: string,
+    end_time: string
 }
 
 const CreateEventPage = () => {
@@ -39,8 +40,8 @@ const CreateEventPage = () => {
         description: "",
         location: "",
         type: "academic",
-        start_time: new Date(),
-        end_time: new Date()
+        start_time: "",
+        end_time: ""
     })
 
     const handleCreateEvent: FormEventHandler = (e) => {
@@ -52,6 +53,16 @@ const CreateEventPage = () => {
                 reset('title', 'description', 'location', 'type', 'start_time', 'end_time')
             },
         })
+    }
+
+    const parseLocalDateTime = (value: string) => {
+        if (!value) return undefined
+
+        const [date, time] = value.split(' ')
+        const [y, m, d] = date.split('-').map(Number)
+        const [hh, mm, ss] = time.split(':').map(Number)
+
+        return new Date(y, m - 1, d, hh, mm, ss) // start_time: 2025-12-31 00:00:00, end_time: 2026-01-01 00:00:00
     }
 
     return (
@@ -114,10 +125,10 @@ const CreateEventPage = () => {
                                 </div>
                                 <div>
                                     <DatePickerRangeAndTimePicker
-                                        start={data.start_time}
-                                        end={data.end_time}
-                                        onStartChange={(start) => setData('start_time', start)}
-                                        onEndChange={(end) => setData('end_time', end)}
+                                        start={parseLocalDateTime(data.start_time)}
+                                        end={parseLocalDateTime(data.end_time)}
+                                        onStartChange={(start) => start && setData('start_time', format(start, 'yyyy-MM-dd HH:mm:ss'))}
+                                        onEndChange={(end) => end && setData('end_time', format(end, 'yyyy-MM-dd HH:mm:ss'))}
                                     />
                                     <div className="flex flex-col gap-2 mt-3">
                                         {errors.start_time && <span className="text-xs text-red-500">{errors.start_time}</span>}
