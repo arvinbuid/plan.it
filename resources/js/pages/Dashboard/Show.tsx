@@ -45,7 +45,7 @@ const ShowUpcomingEvent = ({ event }: ShowProps) => {
                     </CardHeader>
                     <CardContent>
                         {/* Dates */}
-                        <div className="flex gap-4">
+                        <div className="flex flex-col items-center mt-2 sm:flex-row md:mt-0 gap-4">
                             <div className="text-sm space-y-2">
                                 <p>Start Date</p>
                                 <Calendar
