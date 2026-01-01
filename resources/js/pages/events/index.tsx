@@ -11,16 +11,8 @@ import {
 import { BreadcrumbItem, Event } from '@/types';
 import { Button } from '@/components/ui/button';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
 import { pagesToShow, capitalizeFirstLetter } from '@/lib/utils';
+import EventsPagination from '@/components/events-pagination';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -116,73 +108,13 @@ export default function Index({ events }: { events: IndexProps }) {
                 </Table>
 
                 <div className="mt-4">
-                    <Pagination>
-                        <PaginationContent>
-                            <PaginationItem>
-                                {prev_page_url ? (
-                                    <PaginationPrevious
-                                        className='cursor-pointer'
-                                        onClick={(e) => {
-                                            e.preventDefault()
-                                            router.visit(prev_page_url, {
-                                                preserveScroll: true,
-                                                preserveState: true
-                                            })
-                                        }}
-                                    />
-                                ) : (
-                                    <PaginationPrevious className="pointer-events-none opacity-50" aria-disabled />
-                                )}
-                            </PaginationItem>
-                            {/* Left ellipsis */}
-                            {current_page >= 2 && (
-                                <PaginationItem>
-                                    <PaginationEllipsis />
-                                </PaginationItem>
-                            )}
-                            {/* Page numbers (3 maximum) */}
-                            {pages.map((page, idx) => (
-                                <PaginationItem key={idx}>
-                                    <PaginationLink
-                                        isActive={page === current_page}
-                                        className='cursor-pointer'
-                                        onClick={(e) => {
-                                            e.preventDefault()
-                                            router.visit(route('events.index', { page }), {
-                                                preserveScroll: true,
-                                                preserveState: true
-                                            })
-                                        }}
-                                    >
-                                        {page}
-                                    </PaginationLink>
-                                </PaginationItem>
-                            ))}
-                            {/* Right ellipsis */}
-                            {current_page < last_page - 1 && (
-                                <PaginationItem>
-                                    <PaginationEllipsis />
-                                </PaginationItem>
-                            )}
-                            {/* Next */}
-                            <PaginationItem>
-                                {next_page_url ? (
-                                    <PaginationNext
-                                        className='cursor-pointer'
-                                        onClick={(e) => {
-                                            e.preventDefault()
-                                            router.visit(next_page_url, {
-                                                preserveScroll: true,
-                                                preserveState: true
-                                            })
-                                        }}
-                                    />
-                                ) : (
-                                    <PaginationNext className="pointer-events-none opacity-50" aria-disabled />
-                                )}
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>
+                    <EventsPagination
+                        prev_page_url={prev_page_url}
+                        next_page_url={next_page_url}
+                        pages={pages}
+                        current_page={current_page}
+                        last_page={last_page}
+                    />
                 </div>
             </div>
         </AppLayout>
