@@ -120,15 +120,18 @@ export default function Index({ events }: { events: IndexProps }) {
                         <PaginationContent>
                             <PaginationItem>
                                 {prev_page_url ? (
-                                    <Link
-                                        href={prev_page_url}
-                                        preserveScroll
-                                        preserveState
-                                    >
-                                        <PaginationPrevious />
-                                    </Link>
+                                    <PaginationPrevious
+                                        className='cursor-pointer'
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            router.visit(prev_page_url, {
+                                                preserveScroll: true,
+                                                preserveState: true
+                                            })
+                                        }}
+                                    />
                                 ) : (
-                                    <PaginationPrevious className="pointer-events-none opacity-50" />
+                                    <PaginationPrevious className="pointer-events-none opacity-50" aria-disabled />
                                 )}
                             </PaginationItem>
                             {/* Left ellipsis */}
@@ -140,15 +143,19 @@ export default function Index({ events }: { events: IndexProps }) {
                             {/* Page numbers (3 maximum) */}
                             {pages.map((page, idx) => (
                                 <PaginationItem key={idx}>
-                                    <Link
-                                        href={route('events.index', { page })}
-                                        preserveScroll
-                                        preserveState
+                                    <PaginationLink
+                                        isActive={page === current_page}
+                                        className='cursor-pointer'
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            router.visit(route('events.index', { page }), {
+                                                preserveScroll: true,
+                                                preserveState: true
+                                            })
+                                        }}
                                     >
-                                        <PaginationLink isActive={page === current_page}>
-                                            {page}
-                                        </PaginationLink>
-                                    </Link>
+                                        {page}
+                                    </PaginationLink>
                                 </PaginationItem>
                             ))}
                             {/* Right ellipsis */}
@@ -160,15 +167,18 @@ export default function Index({ events }: { events: IndexProps }) {
                             {/* Next */}
                             <PaginationItem>
                                 {next_page_url ? (
-                                    <Link
-                                        href={next_page_url}
-                                        preserveScroll
-                                        preserveState
-                                    >
-                                        <PaginationNext />
-                                    </Link>
+                                    <PaginationNext
+                                        className='cursor-pointer'
+                                        onClick={(e) => {
+                                            e.preventDefault()
+                                            router.visit(next_page_url, {
+                                                preserveScroll: true,
+                                                preserveState: true
+                                            })
+                                        }}
+                                    />
                                 ) : (
-                                    <PaginationNext className="pointer-events-none opacity-50" />
+                                    <PaginationNext className="pointer-events-none opacity-50" aria-disabled />
                                 )}
                             </PaginationItem>
                         </PaginationContent>
