@@ -52,7 +52,10 @@ const ShowUpcomingEvent = ({ event }: ShowProps) => {
                                     mode="single"
                                     selected={startDate}
                                     className="rounded-md border shadow-sm"
-                                    captionLayout="dropdown"
+                                    captionLayout="label"
+                                    disableNavigation
+                                    hideNavigation
+                                    lang="ph"
                                 />
                             </div>
                             <div className="text-sm space-y-2">
@@ -61,7 +64,9 @@ const ShowUpcomingEvent = ({ event }: ShowProps) => {
                                     mode="single"
                                     selected={endDate}
                                     className="rounded-md border shadow-sm"
-                                    captionLayout="dropdown"
+                                    captionLayout="label"
+                                    disableNavigation
+                                    hideNavigation
                                 />
                             </div>
                         </div>
