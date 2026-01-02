@@ -8,6 +8,12 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { BreadcrumbItem, Event } from '@/types';
 import { Button } from '@/components/ui/button';
 import { PencilIcon, Trash2Icon } from 'lucide-react';
@@ -53,7 +59,7 @@ export default function Index({ events }: { events: IndexProps }) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Events" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="mt-8">
+                <div className="mt-8 flex justify-between max-w-6xl">
                     <Link href='/events/create'>
                         <Button
                             variant='outline'
@@ -62,6 +68,43 @@ export default function Index({ events }: { events: IndexProps }) {
                             Create New Event
                         </Button>
                     </Link>
+                    {/* Sort By */}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant='outline' className='cursor-pointer'>Sort By</Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem
+                                className='cursor-pointer'
+                                onClick={() => router.get(route('events.index'),
+                                    {
+                                        sort: 'title',
+                                        order: 'asc'
+                                    },
+                                    {
+                                        preserveScroll: true,
+                                        preserveState: true
+                                    })}
+                            >
+                                Title
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                className='cursor-pointer'
+                                onClick={() => router.get(route('events.index'),
+                                    {
+                                        sort: 'created_at',
+                                        order: 'desc'
+                                    },
+                                    {
+                                        preserveScroll: true,
+                                        preserveState: true
+                                    }
+                                )}
+                            >
+                                Created At
+                            </DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
                 <Table className='mt-4'>
                     <TableHeader>

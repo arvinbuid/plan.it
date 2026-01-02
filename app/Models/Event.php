@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +26,8 @@ class Event extends Model
         'end_time' => 'datetime'
     ];
 
-    public function scopeSortBy($query, $sort, $order = 'desc')
+    #[Scope]
+    public function sortBy(Builder $query, $sort, $order = 'desc')
     {
         $columns = ['title', 'created_at', 'updated_at', 'start_time', 'location'];
         $orders = ['desc', 'asc'];
