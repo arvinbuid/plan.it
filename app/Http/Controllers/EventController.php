@@ -15,8 +15,16 @@ class EventController extends Controller
      */
     public function index()
     {
+        $events = Event::query()
+            ->sortBy(
+                request('sort', 'created_at'),
+                request('order', 'desc')
+            )
+            ->paginate(6)
+            ->withQueryString();
+
         return Inertia::render('Events/Index', [
-            'events' => EventResource::collection(Event::paginate(6))
+            'events' => EventResource::collection($events),
         ]);
     }
 
