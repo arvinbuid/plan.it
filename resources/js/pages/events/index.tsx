@@ -59,7 +59,7 @@ export default function Index({ events }: { events: IndexProps }) {
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Events" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="mt-8 flex justify-between max-w-6xl">
+                <div className="mt-8 flex justify-between">
                     <Link href='/events/create'>
                         <Button
                             variant='outline'
