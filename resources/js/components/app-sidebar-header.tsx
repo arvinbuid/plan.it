@@ -2,6 +2,8 @@ import { Breadcrumbs } from '@/components/breadcrumbs';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import { type BreadcrumbItem as BreadcrumbItemType } from '@/types';
 import { ModeToggle } from './mode-toggle';
+import { Input } from './ui/input';
+import { Search } from 'lucide-react';
 
 export function AppSidebarHeader({
     breadcrumbs = [],
@@ -14,7 +16,13 @@ export function AppSidebarHeader({
                 <SidebarTrigger className="-ml-1" />
                 <Breadcrumbs breadcrumbs={breadcrumbs} />
             </div>
-            <ModeToggle />
+            <div className='flex items-center gap-2'>
+                <Input
+                    placeholder='Search an event...'
+                />
+                <Search className='cursor-pointer' />
+                <ModeToggle />
+            </div>
         </header>
     );
 }
