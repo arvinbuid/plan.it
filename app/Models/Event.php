@@ -42,4 +42,21 @@ class Event extends Model
 
         return $query->orderBy($sort, $order);
     }
+
+    #[Scope]
+    public function search(Builder $query, $searchTerm)
+    {
+        if (!filled($searchTerm)) {
+            return $query;
+        }
+
+        $term = trim($searchTerm);
+
+        return $query->where(function ($q) use ($term) {
+            $q->where('title', 'like', "%{$term}%")
+                ->orWhere('description', 'like', "%{$term}%")
+                ->orWhere('location', 'like', "%{$term}%")
+                ->orWhere('type', 'like', "%{$term}%");
+        });
+    }
 }
