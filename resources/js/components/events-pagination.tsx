@@ -24,7 +24,7 @@ const EventsPagination = ({ prev_page_url, next_page_url, pages, current_page, l
                 <PaginationItem>
                     {prev_page_url ? (
                         <PaginationPrevious
-                            className='cursor-pointer'
+                            className='cursor-pointer select-none'
                             onClick={(e) => {
                                 e.preventDefault()
                                 router.visit(prev_page_url, {
@@ -34,7 +34,7 @@ const EventsPagination = ({ prev_page_url, next_page_url, pages, current_page, l
                             }}
                         />
                     ) : (
-                        <PaginationPrevious className="pointer-events-none opacity-50" aria-disabled />
+                        <PaginationPrevious className="pointer-events-none opacity-50 select-none" aria-disabled />
                     )}
                 </PaginationItem>
                 {/* Left ellipsis */}
@@ -48,7 +48,7 @@ const EventsPagination = ({ prev_page_url, next_page_url, pages, current_page, l
                     <PaginationItem key={idx}>
                         <PaginationLink
                             isActive={page === current_page}
-                            className='cursor-pointer'
+                            className='cursor-pointer select-none'
                             onClick={(e) => {
                                 e.preventDefault()
                                 router.visit(route('events.index', { page }), {
@@ -71,7 +71,7 @@ const EventsPagination = ({ prev_page_url, next_page_url, pages, current_page, l
                 <PaginationItem>
                     {next_page_url ? (
                         <PaginationNext
-                            className='cursor-pointer'
+                            className='cursor-pointer select-none'
                             onClick={(e) => {
                                 e.preventDefault()
                                 router.visit(next_page_url, {
@@ -81,7 +81,7 @@ const EventsPagination = ({ prev_page_url, next_page_url, pages, current_page, l
                             }}
                         />
                     ) : (
-                        <PaginationNext className="pointer-events-none opacity-50" aria-disabled />
+                        <PaginationNext className="pointer-events-none opacity-50 select-none" aria-disabled />
                     )}
                 </PaginationItem>
             </PaginationContent>
