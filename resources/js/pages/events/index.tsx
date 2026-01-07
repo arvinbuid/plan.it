@@ -53,8 +53,6 @@ export default function Index(props: IndexProps) {
     const { prev: prev_page_url, next: next_page_url } = links;
     const { current_page, last_page } = meta;
 
-    console.log(props)
-
     const hasSearch = !!search;
     const noResults = hasSearch && data.length === 0;
     const pages = pagesToShow(current_page, last_page);
