@@ -31,6 +31,7 @@ export function AppSidebarHeader({
                 <Input
                     placeholder='Search an event...'
                     onChange={(e) => setSearch(e.target.value)}
+                    className='w-36 lg:w-64'
                 />
 
                 <Button className='cursor-pointer' onClick={handleSearch}>
