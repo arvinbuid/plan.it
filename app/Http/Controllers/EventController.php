@@ -23,6 +23,9 @@ class EventController extends Controller
 
         return Inertia::render('Events/Index', [
             'events' => EventResource::collection($events),
+            'filters' => [
+                'search' => request('search'),
+            ]
         ]);
     }
 

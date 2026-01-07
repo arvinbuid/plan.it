@@ -31,21 +31,33 @@ const breadcrumbs: BreadcrumbItem[] = [
     }
 ]
 interface IndexProps {
-    data: Event[]
-    links: {
-        prev: string | null;
-        next: string | null;
-    };
-    meta: {
-        current_page: number;
-        last_page: number;
-    };
+    events: {
+        data: Event[]
+        links: {
+            prev: string | null;
+            next: string | null;
+        };
+        meta: {
+            current_page: number;
+            last_page: number;
+        };
+    },
+    filters: {
+        search?: string;
+    }
 }
 
-export default function Index({ events }: { events: IndexProps }) {
-    const { data, links, meta } = events;
+export default function Index(props: IndexProps) {
+    const { data, links, meta } = props.events;
+    const { search } = props.filters;
     const { prev: prev_page_url, next: next_page_url } = links;
     const { current_page, last_page } = meta;
+
+    console.log(props)
+
+    const hasSearch = !!search;
+    const noResults = hasSearch && data.length === 0;
+    const pages = pagesToShow(current_page, last_page);
 
     const handleDeleteEvent = (id: number) => {
         if (confirm('Are you sure you want to delete?')) {
@@ -53,13 +65,12 @@ export default function Index({ events }: { events: IndexProps }) {
         }
     }
 
-    const pages = pagesToShow(current_page, last_page);
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Events" />
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="mt-8 flex justify-between">
+                {hasSearch && !noResults && <h1 className='font-semibold ml-1'>Search Results for “{search}”</h1>}
+                <div className="mt-2 flex justify-between">
                     <Link href='/events/create'>
                         <Button
                             variant='outline'
@@ -69,42 +80,44 @@ export default function Index({ events }: { events: IndexProps }) {
                         </Button>
                     </Link>
                     {/* Sort By */}
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant='outline' className='cursor-pointer'>Sort By</Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            <DropdownMenuItem
-                                className='cursor-pointer'
-                                onClick={() => router.get(route('events.index'),
-                                    {
-                                        sort: 'title',
-                                        order: 'asc'
-                                    },
-                                    {
-                                        preserveScroll: true,
-                                        preserveState: true
-                                    })}
-                            >
-                                Title
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                                className='cursor-pointer'
-                                onClick={() => router.get(route('events.index'),
-                                    {
-                                        sort: 'created_at',
-                                        order: 'desc'
-                                    },
-                                    {
-                                        preserveScroll: true,
-                                        preserveState: true
-                                    }
-                                )}
-                            >
-                                Created At
-                            </DropdownMenuItem>
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    {!hasSearch && (
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button variant='outline' className='cursor-pointer'>Sort By</Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <DropdownMenuItem
+                                    className='cursor-pointer'
+                                    onClick={() => router.get(route('events.index'),
+                                        {
+                                            sort: 'title',
+                                            order: 'asc'
+                                        },
+                                        {
+                                            preserveScroll: true,
+                                            preserveState: true
+                                        })}
+                                >
+                                    Title
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                    className='cursor-pointer'
+                                    onClick={() => router.get(route('events.index'),
+                                        {
+                                            sort: 'created_at',
+                                            order: 'desc'
+                                        },
+                                        {
+                                            preserveScroll: true,
+                                            preserveState: true
+                                        }
+                                    )}
+                                >
+                                    Created At
+                                </DropdownMenuItem>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    )}
                 </div>
                 <Table className='mt-4'>
                     <TableHeader>
@@ -117,6 +130,28 @@ export default function Index({ events }: { events: IndexProps }) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
+                        {data.length === 0 && (
+                            <TableRow>
+                                <TableCell colSpan={5} className='mt-10'>
+                                    {hasSearch ? (
+                                        <div className='rounded-lg p-4 border text-center text-muted-foreground'>
+                                            <p className="text-xl font-medium">No results found</p>
+                                            <p className="text-sm">
+                                                No events matched for “{search}”.
+                                            </p>
+                                        </div>
+                                    ) : (
+                                        <div className='rounded-lg p-4 border text-center text-muted-foreground'>
+                                            <p className="text-lg font-medium">No events yet</p>
+                                            <p className="text-sm">
+                                                Create your first event to get started.
+                                            </p>
+                                        </div>
+                                    )}
+                                </TableCell>
+                            </TableRow>
+                        )}
+
                         {data.map((event) => {
                             const length = event.description.length;
                             const description = length > 50 ? event.description.substring(0, 50) + '...' : event.description;
@@ -150,16 +185,19 @@ export default function Index({ events }: { events: IndexProps }) {
                     </TableBody>
                 </Table>
 
-                <div className="mt-4">
-                    <EventsPagination
-                        prev_page_url={prev_page_url}
-                        next_page_url={next_page_url}
-                        pages={pages}
-                        current_page={current_page}
-                        last_page={last_page}
-                    />
-                </div>
+                {/* Pagination */}
+                {data.length > 0 && (
+                    <div className="mt-4">
+                        <EventsPagination
+                            prev_page_url={prev_page_url}
+                            next_page_url={next_page_url}
+                            pages={pages}
+                            current_page={current_page}
+                            last_page={last_page}
+                        />
+                    </div>
+                )}
             </div>
-        </AppLayout>
+        </AppLayout >
     );
 }
