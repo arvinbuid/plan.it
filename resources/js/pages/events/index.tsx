@@ -156,7 +156,7 @@ export default function Index(props: IndexProps) {
 
                             return (
                                 <TableRow key={event.id}>
-                                    <TableCell className='font-medium'>{event.title}</TableCell>
+                                    <TableCell className='font-medium cursor-pointer' onClick={() => router.get(`/events/${event.id}`)}>{event.title}</TableCell>
                                     <TableCell>{capitalizeFirstLetter(event.type.toString())}</TableCell>
                                     <TableCell>{description}</TableCell>
                                     <TableCell>{event.location}</TableCell>
