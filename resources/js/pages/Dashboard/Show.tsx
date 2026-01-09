@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/card"
 import { Calendar } from "@/components/ui/calendar";
 import { MapPin, Calendar as CalendarIcon } from "lucide-react";
+import { useState } from "react";
+import { DateRange } from "react-day-picker";
 
 interface ShowProps {
     event: {
@@ -23,6 +25,11 @@ const ShowUpcomingEvent = ({ event }: ShowProps) => {
     const startDate = new Date(data.start_time);
     const endDate = new Date(data.end_time);
     const eventType = data.type.charAt(0).toUpperCase() + data.type.slice(1);
+
+    const [dateRange] = useState<DateRange | undefined>({
+        from: startDate,
+        to: endDate
+    })
 
     return (
         <AppLayout>
@@ -47,22 +54,13 @@ const ShowUpcomingEvent = ({ event }: ShowProps) => {
                         {/* Dates */}
                         <div className="flex flex-col items-center mt-2 sm:flex-row md:mt-0 gap-4">
                             <div className="text-sm space-y-2">
-                                <p>Start Date</p>
+                                <p>{data.title} Schedule</p>
                                 <Calendar
-                                    mode="single"
-                                    selected={startDate}
-                                    className="rounded-md border shadow-sm"
-                                    captionLayout="label"
-                                    disableNavigation
-                                    hideNavigation
-                                    lang="ph"
-                                />
-                            </div>
-                            <div className="text-sm space-y-2">
-                                <p>End Date</p>
-                                <Calendar
-                                    mode="single"
-                                    selected={endDate}
+                                    mode="range"
+                                    numberOfMonths={2}
+                                    defaultMonth={dateRange?.from}
+                                    required
+                                    selected={dateRange}
                                     className="rounded-md border shadow-sm"
                                     captionLayout="label"
                                     disableNavigation
