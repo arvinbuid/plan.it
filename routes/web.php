@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -17,6 +18,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('dashboard/{event}', [DashboardController::class, 'show'])->name('dashboard.show');
 
     Route::resource('events', EventController::class);
+    Route::resource('users', UserController::class);
 });
 
 require __DIR__ . '/settings.php';
