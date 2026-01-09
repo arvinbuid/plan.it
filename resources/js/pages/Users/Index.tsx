@@ -16,7 +16,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 const Index = () => {
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="users" />
+            <Head title="Users" />
         </AppLayout>
     );
 }
