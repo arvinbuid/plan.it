@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { BreadcrumbItem, User } from "@/types";
 import { Head, Link, router } from "@inertiajs/react";
 import { PencilIcon, Trash2Icon } from "lucide-react";
+import { format } from "date-fns";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -61,7 +62,7 @@ const Index = ({ users }: IndexProps) => {
                                     <TableCell className='font-medium cursor-pointer' onClick={() => router.get(`/users/${user.id}`)}>{user.name}</TableCell>
                                     <TableCell>{user.email}</TableCell>
                                     <TableCell>{user.avatar}</TableCell>
-                                    <TableCell>{user.created_at}</TableCell>
+                                    <TableCell>{format(user.created_at, "dd/MM/yyyy")}</TableCell>
                                     <TableCell>
                                         <Link href={`/users/${user.id}/edit`}>
                                             <Button
