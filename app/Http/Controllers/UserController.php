@@ -24,7 +24,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Users/Create');
     }
 
     /**
@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return Inertia::render('Users/Show');
     }
 
     /**
@@ -48,7 +48,7 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return Inertia::render('Users/Edit');
     }
 
     /**
