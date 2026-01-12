@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -51,15 +52,19 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        return Inertia::render('Users/Edit');
+        return Inertia::render('Users/Edit', [
+            'user' => User::find($id)
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserRequest $request, string $id)
     {
-        //
+        $validated = $request->validated();
+        User::find($id)->update($validated);
+        return to_route('users.index')->with('success', 'User updated successfully.');
     }
 
     /**
