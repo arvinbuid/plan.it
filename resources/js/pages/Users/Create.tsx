@@ -55,7 +55,7 @@ const CreateUser = () => {
 
                     >
                         <FieldSet className="max-w-md pl-4">
-                            <FieldLegend>Create New user</FieldLegend>
+                            <FieldLegend>Create New User</FieldLegend>
                             <FieldGroup className="mt-2 space-y-1">
                                 <Field>
                                     <FieldLabel htmlFor="name">Name</FieldLabel>
