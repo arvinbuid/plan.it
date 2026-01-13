@@ -29,7 +29,11 @@ interface IndexProps {
 }
 
 const Index = ({ users }: IndexProps) => {
-    const handleDeleteUser = (userId: number) => { }
+    const handleDeleteUser = (userId: number) => {
+        if (confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+            router.delete(route('users.destroy', userId))
+        }
+    }
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
