@@ -16,6 +16,7 @@ type CreateUserForm = {
     email: string;
     password: string;
     password_confirmation: string;
+    avatar: File | null
 }
 
 const CreateUser = () => {
@@ -24,6 +25,7 @@ const CreateUser = () => {
         email: "",
         password: "",
         password_confirmation: "",
+        avatar: null
     })
 
     const handleCreateUser: FormEventHandler = (e) => {
@@ -31,6 +33,7 @@ const CreateUser = () => {
 
         post(route('users.store'), {
             preserveScroll: true,
+            forceFormData: true,
             onSuccess: () => {
                 reset('name', 'email', 'password', 'password_confirmation')
             }
@@ -104,6 +107,16 @@ const CreateUser = () => {
                                         onChange={(e) => setData('password_confirmation', e.target.value)}
                                     />
                                     {errors.password_confirmation && <span className="text-xs text-red-500">{errors.password_confirmation}</span>}
+                                </Field>
+                                <Field>
+                                    <FieldLabel htmlFor="avatar">Avatar</FieldLabel>
+                                    <Input
+                                        type="file"
+                                        id="avatar"
+                                        name="avatar"
+                                        onChange={(e) => setData('avatar', e.target.files[0])}
+                                    />
+                                    {errors.avatar && <span className="text-xs text-red-500">{errors.avatar}</span>}
                                 </Field>
                                 <Field orientation="horizontal">
                                     <Button type="submit" className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-50" disabled={processing}>
