@@ -7,6 +7,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button";
 import { BreadcrumbItem, User } from "@/types";
 import { Head, Link, router } from "@inertiajs/react";
@@ -65,7 +66,12 @@ const Index = ({ users }: IndexProps) => {
                                 <TableRow key={user.id}>
                                     <TableCell className='font-medium cursor-pointer' onClick={() => router.get(`/users/${user.id}`)}>{user.name}</TableCell>
                                     <TableCell>{user.email}</TableCell>
-                                    <TableCell>{user.avatar}</TableCell>
+                                    <TableCell>
+                                        <Avatar>
+                                            <AvatarImage src={`/storage/${user.avatar}`} />
+                                            <AvatarFallback>NA</AvatarFallback>
+                                        </Avatar>
+                                    </TableCell>
                                     <TableCell>{format(user.created_at, "dd/MM/yyyy")}</TableCell>
                                     <TableCell>
                                         <Link href={`/users/${user.id}/edit`}>
