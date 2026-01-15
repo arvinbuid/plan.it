@@ -17,6 +17,7 @@ type UpdateUserForm = {
     email: string;
     password: string;
     password_confirmation: string;
+    avatar: string | undefined;
 }
 
 const EditUser = ({ user }: { user: User }) => {
@@ -25,6 +26,7 @@ const EditUser = ({ user }: { user: User }) => {
         email: user.email,
         password: "",
         password_confirmation: "",
+        avatar: user.avatar
     })
 
     const handleUpdateUser: FormEventHandler = (e) => {
@@ -103,6 +105,21 @@ const EditUser = ({ user }: { user: User }) => {
                                         onChange={(e) => setData('password_confirmation', e.target.value)}
                                     />
                                     {errors.password_confirmation && <span className="text-xs text-red-500">{errors.password_confirmation}</span>}
+                                </Field>
+                                <Field>
+                                    <FieldLabel htmlFor="avatar">Avatar</FieldLabel>
+                                    <Input
+                                        type="file"
+                                        id="avatar"
+                                        name="avatar"
+                                        onChange={(e) => {
+                                            if (e.target.files) {
+                                                setData('avatar', e.target.files[0]);
+                                            }
+                                        }
+                                        }
+                                    />
+                                    {errors.avatar && <span className="text-xs text-red-500">{errors.avatar}</span>}
                                 </Field>
                                 <Field orientation="horizontal">
                                     <Button type="submit" className="cursor-pointer disabled:cursor-not-allowed disabled:opacity-50" disabled={processing}>
