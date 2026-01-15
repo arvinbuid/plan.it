@@ -114,7 +114,12 @@ const CreateUser = () => {
                                         type="file"
                                         id="avatar"
                                         name="avatar"
-                                        onChange={(e) => setData('avatar', e.target.files[0])}
+                                        onChange={(e) => {
+                                            if (e.target.files) {
+                                                setData('avatar', e.target.files[0])
+                                            }
+                                        }
+                                        }
                                     />
                                     {errors.avatar && <span className="text-xs text-red-500">{errors.avatar}</span>}
                                 </Field>
