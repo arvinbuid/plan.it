@@ -57,6 +57,7 @@ const Index = ({ users }: IndexProps) => {
                             <TableHead>Email</TableHead>
                             <TableHead>Avatar</TableHead>
                             <TableHead>Created At</TableHead>
+                            <TableHead>Updated At</TableHead>
                             <TableHead>Actions</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -73,6 +74,7 @@ const Index = ({ users }: IndexProps) => {
                                         </Avatar>
                                     </TableCell>
                                     <TableCell>{format(user.created_at, "dd/MM/yyyy")}</TableCell>
+                                    <TableCell>{format(user.updated_at, "dd/MM/yyyy")}</TableCell>
                                     <TableCell>
                                         <Link href={`/users/${user.id}/edit`}>
                                             <Button
