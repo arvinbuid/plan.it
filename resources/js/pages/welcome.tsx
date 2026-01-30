@@ -39,14 +39,14 @@ export default function Welcome({
                                 <div className='flex items-center gap-2'>
                                     <Link
                                         href={login()}
-                                        className="inline-block rounded-xs border border-[#746326] text-[#746326] px-6 py-2.5 text-xs leading-normal uppercase font-medium"
+                                        className="inline-block rounded-xs border border-[#746326] text-[#746326] px-6 py-2.5 text-xs leading-normal uppercase font-medium hover:bg-[#BBA03E] hover:text-[#F6EDCC] duration-300 ease-in-out"
                                     >
-                                        Log in
+                                        Login
                                     </Link>
                                     {canRegister && (
                                         <Link
                                             href={register()}
-                                            className="inline-block rounded-xs border border-[#531527] bg-[#531527] text-[#DAC0C8] px-6 py-2.5 text-xs leading-normal uppercase font-medium"
+                                            className="inline-block rounded-xs border border-[#531527] bg-[#531527] text-[#DAC0C8] px-6 py-2.5 text-xs leading-normal uppercase font-medium hover:bg-[#FFFAF5] hover:text-[#3F101E] duration-300 ease-in-out"
                                         >
                                             Register
                                         </Link>
@@ -62,7 +62,7 @@ export default function Welcome({
                         <div className='mt-20 pl-28 space-y-6 max-w-2xl'>
                             <h2 className='font-playfair text-7xl leading-18 tracking-tighter font-medium'>Make every school <br /><span>events</span> <br /><span className='font-light underline decoration-[1.5px] underline-offset-8 text-[#DFBF4A] italic'>nice.</span></h2>
                             <p className='text-lg text-[#626162]'>From the bottom to the summit. Effortlessly manage school events, meetings with a platform design for grandeur.</p>
-                            <Link>
+                            <Link href={login()}>
                                 <button className='flex items-center gap-3 px-8 py-4 bg-[#531527] text-[#DAC0C8] uppercase text-sm tracking-wider font-semibold'>Get Started <span className='w-2 h-2 rounded-full bg-[#E4C967]'></span></button>
                             </Link>
                         </div>
