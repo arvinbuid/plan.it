@@ -17,6 +17,7 @@ class EventController extends Controller
     public function index()
     {
         $events = Event::query()
+            ->where('user_id', Auth::id())
             ->search(request('search'))
             ->sortBy(request('sort'), request('order'))
             ->paginate(6)
