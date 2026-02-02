@@ -7,6 +7,7 @@ use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Http\Resources\EventResource;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 
 class EventController extends Controller
@@ -75,6 +76,11 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
+        // Check if current user owns the event
+        if (!Gate::allows('update-event', $event)) {
+            return session()->flash('error', 'You do not have permission to update this event!');
+        }
+
         $validated = $request->validated();
         $event->update($validated);
         return to_route('events.index')->with('success', 'Event updated successfully.');
@@ -85,6 +91,10 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
+        if (!Gate::allows('delete-event', $event)) {
+            return session()->flash('error', 'You do not have permission to delete this event!');
+        }
+
         $event->delete();
         return to_route('events.index')->with('success', 'Event deleted successfully.');
     }

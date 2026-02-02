@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Event;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Gate::define('update-event', function (User $user, Event $event) {
+            return $user->id === $event->user_id;
+        });
+
+        Gate::define('delete-event', function (User $user, Event $event) {
+            return $user->id === $event->user_id;
+        });
     }
 }
