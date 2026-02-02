@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -69,6 +70,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        if (!Gate::allows('update-user', $user)) {
+            return session()->flash('error', 'You do not have permission to update this user!');
+        }
+
         $validated = $request->validated();
 
         // Delete old avatar if it exists
@@ -91,6 +96,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if (!Gate::allows('delete-user', $user)) {
+            return session()->flash('error', 'You do not have permission to delete this user!');
+        }
+
         $user->delete();
         return to_route('users.index')->with('success', 'User deleted successfully.');
     }

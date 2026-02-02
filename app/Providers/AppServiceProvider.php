@@ -29,5 +29,13 @@ class AppServiceProvider extends ServiceProvider
         Gate::define('delete-event', function (User $user, Event $event) {
             return $user->id === $event->user_id;
         });
+
+        Gate::define('update-user', function (User $user, User $anotherUser) {
+            return $user->id === $anotherUser->id;
+        });
+
+        Gate::define('delete-user', function (User $user, User $anotherUser) {
+            return $user->id === $anotherUser->id;
+        });
     }
 }
