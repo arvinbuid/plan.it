@@ -26,8 +26,8 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, upcomingEventsCount, ongoi
                 <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <div className="p-6 space-y-2">
                         <div className="flex justify-between items-center">
-                            <span className="bg-fuchsia-500 p-3 sm:p-4 rounded-full mb-2"><Ticket className="w-5 h-5 sm:w-6 sm:h-6 text-white" /></span>
-                            <EllipsisVertical className="text-slate-500 dark:text-gray-200 w-5 h-5 sm:w-6 sm:h-6" />
+                            <span className="bg-fuchsia-500 p-3 sm:p-4 rounded-full mb-2"><Ticket className="w-5 h-5 text-white" /></span>
+                            <EllipsisVertical className="text-slate-500 dark:text-gray-200 w-5 h-5 self-start mt-2" />
                         </div>
                         <h1 className="text-md sm:text-lg text-slate-500 dark:text-gray-200">Total Events</h1>
                         <p className="font-bold text-4xl text-blue-900 dark:text-gray-200">{totalEvents}</p>
@@ -37,8 +37,8 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, upcomingEventsCount, ongoi
                 <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <div className="p-6 space-y-2">
                         <div className="flex justify-between items-center">
-                            <span className="bg-fuchsia-500 p-3 sm:p-4 rounded-full mb-2"><CalendarDays className="w-5 h-5 sm:w-6 sm:h-6 text-white" /></span>
-                            <EllipsisVertical className="text-slate-500 dark:text-gray-200 w-5 h-5 sm:w-6 sm:h-6" />
+                            <span className="bg-fuchsia-500 p-3 sm:p-4 rounded-full mb-2"><CalendarDays className="w-5 h-5 text-white" /></span>
+                            <EllipsisVertical className="text-slate-500 dark:text-gray-200 w-5 h-5 self-start mt-2" />
                         </div>
                         <h1 className="text-md sm:text-lg text-slate-500 dark:text-gray-200">Upcoming Events</h1>
                         <p className="font-bold text-4xl text-blue-900 dark:text-gray-200">{upcomingEventsCount}</p>
@@ -48,8 +48,8 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, upcomingEventsCount, ongoi
                 <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <div className="p-6 space-y-2">
                         <div className="flex justify-between items-center">
-                            <span className="bg-fuchsia-500 p-3 sm:p-4 rounded-full mb-2"><CalendarClock className="w-6 h-6 text-white" /></span>
-                            <EllipsisVertical className="text-slate-500 dark:text-gray-200 w-5 h-5 sm:w-6 sm:h-6" />
+                            <span className="bg-fuchsia-500 p-3 sm:p-4 rounded-full mb-2"><CalendarClock className="w-5 h-5 text-white" /></span>
+                            <EllipsisVertical className="text-slate-500 dark:text-gray-200 w-5 h-5 self-start mt-2" />
                         </div>
                         <h1 className="text-md sm:text-lg text-slate-500 dark:text-gray-200">Ongoing Events</h1>
                         <p className="font-bold text-4xl text-blue-900 dark:text-gray-200">{ongoingEvents}</p>
@@ -59,8 +59,8 @@ const DashboardGrid = ({ totalEvents, upcomingEvents, upcomingEventsCount, ongoi
                 <div className="relative overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
                     <div className="p-6 space-y-2">
                         <div className="flex justify-between items-center">
-                            <span className="bg-fuchsia-500 p-3 sm:p-4 rounded-full mb-2"><CalendarCheck className="w-6 h-6 text-white" /></span>
-                            <EllipsisVertical className="text-slate-500 dark:text-gray-200 w-5 h-5 sm:w-6 sm:h-6" />
+                            <span className="bg-fuchsia-500 p-3 sm:p-4 rounded-full mb-2"><CalendarCheck className="w-5 h-5 text-white" /></span>
+                            <EllipsisVertical className="text-slate-500 dark:text-gray-200 w-5 h-5 self-start mt-2" />
                         </div>
                         <h1 className="text-md sm:text-lg text-slate-500 dark:text-gray-200">Past Events</h1>
                         <p className="font-bold text-4xl text-blue-900 dark:text-gray-200">{pastEvents}</p>
