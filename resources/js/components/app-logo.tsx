@@ -1,26 +1,9 @@
-import { useEffect, useState } from "react";
+import { useDarkMode } from "@/hooks/useDarkMode";
 
 export default function AppLogo() {
-    const [isDarkMode, setIsDarkMode] = useState(
-        document.documentElement.classList.contains('dark')
-    )
-
-    // Effect to watch changes being made to the DOM tree
-    useEffect(() => {
-        const observer = new MutationObserver(() => {
-            setIsDarkMode(document.documentElement.classList.contains('dark'))
-        })
-
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['class'] // only watch for changes to the 'class' attribute
-        });
-
-        return () => observer.disconnect();
-    }, [])
-
     const defaultLogo = 'images/logo-default.svg';
     const darkModeLogo = 'images/logo-dark.svg';
+    const isDarkMode = useDarkMode();
 
     return (
         <>
