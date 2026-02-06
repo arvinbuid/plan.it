@@ -68,7 +68,7 @@ export default function Welcome({
                         </div>
                     </div>
                     {/* Right Side */}
-                    <div className='col-span-7 flex items-center'>
+                    <div className='col-span-7 flex items-center overflow-clip'>
                         <img src='/images/project-showcase.png' alt='Hero Image' className='border-6 border-[#531527] rounded-xl translate-x-32 h-[88%] object-cover' />
                     </div>
                 </div>
