@@ -25,11 +25,6 @@ export default function Welcome({
                         ) : (
                             <>
                                 <h1 className='text-3xl font-playfair font-bold text-[#3F101E]'>Plan.<span className='text-[#746326]'>it</span></h1>
-                                <div className='hidden lg:flex items-center gap-9 font-medium'>
-                                    <Link className='uppercase text-[16px]'><p>Philosophy</p></Link>
-                                    <Link className='uppercase text-[16px]'><p>Features</p></Link>
-                                    <Link className='uppercase text-[16px]'><p>About</p></Link>
-                                </div>
                                 <div className='hidden lg:flex items-center gap-2'>
                                     <Link
                                         href={login()}
