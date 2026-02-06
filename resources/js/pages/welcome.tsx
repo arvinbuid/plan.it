@@ -11,15 +11,9 @@ export default function Welcome({
 
     return (
         <>
-            <Head title="Welcome">
-                <link rel="preconnect" href="https://fonts.bunny.net" />
-                <link
-                    href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600"
-                    rel="stylesheet"
-                />
-            </Head>
+            <Head title="Welcome" />
             <div className="flex min-h-screen flex-col bg-[#FFFAF5] text-[#3F101E] font-monserrat">
-                <header className="flex items-center justify-between text-3xl not-has-[nav]:hidden bg-[#FFFAF5] h-[100px] shadow-md/5 px-[120px]">
+                <header className="flex items-center justify-between text-3xl not-has-[nav]:hidden bg-[#FFFAF5] h-[100px] shadow-md/5 px-[45px] md:px-[90px] lg:px-[120px]">
                     <nav className='flex justify-between w-full'>
                         {auth.user ? (
                             <Link
@@ -31,12 +25,12 @@ export default function Welcome({
                         ) : (
                             <>
                                 <h1 className='text-3xl font-playfair font-bold text-[#3F101E]'>Plan.<span className='text-[#746326]'>it</span></h1>
-                                <div className='flex items-center gap-9 font-medium'>
+                                <div className='hidden lg:flex items-center gap-9 font-medium'>
                                     <Link className='uppercase text-[16px]'><p>Philosophy</p></Link>
                                     <Link className='uppercase text-[16px]'><p>Features</p></Link>
                                     <Link className='uppercase text-[16px]'><p>About</p></Link>
                                 </div>
-                                <div className='flex items-center gap-2'>
+                                <div className='hidden lg:flex items-center gap-2'>
                                     <Link
                                         href={login()}
                                         className="inline-block rounded-xs border border-[#746326] text-[#746326] px-6 py-2.5 text-xs leading-normal uppercase font-medium hover:bg-[#BBA03E] hover:text-[#F6EDCC] duration-300 ease-in-out"
@@ -58,17 +52,17 @@ export default function Welcome({
                 </header>
                 <div className='grid grid-cols-12 h-[calc(100vh-150px)]'>
                     {/* Left Side */}
-                    <div className='col-span-5'>
-                        <div className='mt-20 pl-28 space-y-6 max-w-2xl'>
-                            <h2 className='font-playfair text-7xl leading-18 tracking-tighter font-medium'>Make every school <br /><span>events</span> <br /><span className='font-light underline decoration-[1.5px] underline-offset-8 text-[#DFBF4A] italic'>organized.</span></h2>
-                            <p className='text-lg text-[#626162]'>Managing school events can be a tedious task, but with Plan.it, you can easily create and manage your events with ease.</p>
+                    <div className='col-span-12 md:col-span-7 lg:col-span-6 xl:col-span-5'>
+                        <div className='mt-10 lg:mt-20 px-10 lg:pl-28 space-y-6 max-w-2xl'>
+                            <h2 className='font-playfair text-6xl lg:text-7xl leading-16 lg:leading-18 tracking-tighter font-medium'>Make every school <br /><span>events</span> <br /><span className='font-light underline decoration-[1.5px] underline-offset-8 text-[#DFBF4A] italic'>organized.</span></h2>
+                            <p className='text-lg text-[#626162] mt-12 lg:mt-0'>Managing school events can be a tedious task, but with Plan.it, you can easily create and manage your events with ease.</p>
                             <Link href={login()}>
                                 <button className='flex items-center gap-3 px-8 py-4 bg-[#531527] text-[#DAC0C8] uppercase text-sm tracking-wider font-semibold'>Get Started <span className='w-2 h-2 rounded-full bg-[#E4C967]'></span></button>
                             </Link>
                         </div>
                     </div>
                     {/* Right Side */}
-                    <div className='col-span-7 flex items-center overflow-clip'>
+                    <div className='col-span-0 md:col-span-5 lg:col-span-6 xl:col-span-7 hidden md:flex items-center overflow-clip'>
                         <img src='/images/project-showcase.png' alt='Hero Image' className='border-6 border-[#531527] rounded-xl translate-x-32 h-[88%] object-cover' />
                     </div>
                 </div>
