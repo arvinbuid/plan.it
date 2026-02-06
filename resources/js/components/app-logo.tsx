@@ -1,8 +1,8 @@
 import { useDarkMode } from "@/hooks/useDarkMode";
 
 export default function AppLogo() {
-    const defaultLogo = 'images/logo-default.svg';
-    const darkModeLogo = 'images/logo-dark.svg';
+    const defaultLogo = '/images/logo-default.svg';
+    const darkModeLogo = '/images/logo-dark.svg';
     const isDarkMode = useDarkMode();
 
     return (
